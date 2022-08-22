@@ -1,0 +1,24 @@
+{
+  "projectName": "pencil-pattern-generator",
+  "projectOwner": "brainly",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "domidomi",
+      "name": "Dominika Podgórska",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12099980?v=4",
+      "profile": "https://github.com/domidomi",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
