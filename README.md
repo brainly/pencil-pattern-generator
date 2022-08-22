@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-All files are served as is from `public` folder. Edit and go.
+All files are served from the `public` folder. There is no compilation stage, the project uses the web platform as the most perfect one. All you need to do is edit files in public folder and you're done.
 
 ## Deployement
 
