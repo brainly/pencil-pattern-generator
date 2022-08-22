@@ -1,0 +1,23 @@
+{
+  "name": "pencil-pattern-generator",
+  "version": "1.0.0",
+  "description": "Pencil Random 💩 Generator - few hours long pencil creative hackaton project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "serve ./public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brainly/pencil-pattern-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brainly/pencil-pattern-generator/issues"
+  },
+  "homepage": "https://github.com/brainly/pencil-pattern-generator#readme",
+  "devDependencies": {
+    "prettier": "2.7.1",
+    "serve": "^14.0.1"
+  }
+}
