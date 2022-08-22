@@ -4,6 +4,10 @@
 
 ![plot](./resources/screenshot.png)
 
+## Live
+
+[Visit live version](https://brainly.github.io/pencil-pattern-generator/)
+
 ## Local development
 
 ### Install dependencies
