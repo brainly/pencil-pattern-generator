@@ -4,7 +4,9 @@
   "description": "Pencil Random 💩 Generator - few hours long pencil creative hackaton project",
   "main": "index.js",
   "scripts": {
-    "dev": "serve ./public"
+    "dev": "serve ./public",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,7 @@
   },
   "homepage": "https://github.com/brainly/pencil-pattern-generator#readme",
   "devDependencies": {
+    "all-contributors-cli": "^6.20.0",
     "prettier": "2.7.1",
     "serve": "^14.0.1"
   }
