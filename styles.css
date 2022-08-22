@@ -1,0 +1,80 @@
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body div:last-child {
+  transform: translateZ(1px);
+}
+
+.debug .slot {
+  border-color: var(--blue-60);
+}
+
+#canvas {
+  transform: translateZ(0);
+  overflow: hidden;
+  box-sizing: content-box;
+  position: relative;
+  width: 800px;
+  height: 800px;
+  background: var(--yellow-20);
+}
+
+.slot {
+  border: 1px solid transparent;
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#slotsWrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.svg-container {
+  /*   width: 10px;
+  height: 10px;
+  background-color: var(--green-40); */
+}
+
+svg {
+  animation: heartbit var(--animationDuration) var(--animationDelay) infinite,
+    bloop var(--animationDelay) cubic-bezier(1, 0, 0.82, 0.82);
+  transform: rotate(var(--rotate)) translate(var(--x), var(--y));
+}
+
+@keyframes heartbit {
+  0% {
+    transform: scale(1) rotate(var(--rotate)) translate(var(--x), var(--y));
+  }
+  20% {
+    transform: scale(0.75) rotate(var(--rotate)) translate(var(--x), var(--y));
+  }
+  40% {
+    transform: scale(1) rotate(var(--rotate)) translate(var(--x), var(--y));
+  }
+  60% {
+    transform: scale(0.75) rotate(var(--rotate)) translate(var(--x), var(--y));
+  }
+  80% {
+    transform: scale(0.75) rotate(var(--rotate)) translate(var(--x), var(--y));
+  }
+  100% {
+    transform: scale(1) rotate(var(--rotate)) translate(var(--x), var(--y));
+  }
+}
+
+@keyframes bloop {
+  0% {
+    transform: scale(0) rotate(var(--rotate)) translate(var(--x), var(--y));
+  }
+  100% {
+    transform: scale(1) rotate(var(--rotate)) translate(var(--x), var(--y));
+  }
+}
