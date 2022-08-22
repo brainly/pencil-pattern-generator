@@ -6,13 +6,13 @@
 
 ## Local development
 
-### Install dev dependencies
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-### Start dev server
+### Start development server
 
 ```bash
 npm run dev
