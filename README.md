@@ -1,7 +1,7 @@
 # Pencil Pattern Generator
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 > Pencil Random 💩 Generator was a several-hour cretive hackathon project organized by the pencil team. it resulted in an amazing css pattern generator that uses pencil branding images to create crazy effects that you can use as social media backgrounds.
@@ -41,6 +41,7 @@ Public website is automatically published after merge to master.
   <tr>
     <td align="center"><a href="https://github.com/domidomi"><img src="https://avatars.githubusercontent.com/u/12099980?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dominika Podgórska</b></sub></a><br /><a href="https://github.com/brainly/pencil-pattern-generator/commits?author=domidomi" title="Code">💻</a> <a href="#design-domidomi" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/katarzynatobis"><img src="https://avatars.githubusercontent.com/u/60467496?v=4?s=100" width="100px;" alt=""/><br /><sub><b>katarzynatobis</b></sub></a><br /><a href="https://github.com/brainly/pencil-pattern-generator/commits?author=katarzynatobis" title="Code">💻</a> <a href="#design-katarzynatobis" title="Design">🎨</a></td>
+    <td align="center"><a href="http://www.coderitual.com/"><img src="https://avatars.githubusercontent.com/u/8572321?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mike Skowronek</b></sub></a><br /><a href="#business-coderitual" title="Business development">💼</a></td>
   </tr>
 </table>
 
