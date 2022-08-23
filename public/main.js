@@ -148,7 +148,11 @@ const gradients = {
 
 const rows = 10;
 const cols = 10;
-const canvasSize = 800;
+const canvasSize = 100;
+const canvasUnits = {
+  x: "vw",
+  y: "vh",
+};
 const cellSize = canvasSize / rows;
 const emptyOption = "-";
 
@@ -440,7 +444,10 @@ function setBackground() {
 function getIcon(iconScope = []) {
   const icon =
     IconType[iconScope[Math.floor(iconScope.length * Math.random())]];
-  const iconSize = cellSize * 0.6 + cellSize * Math.random() * PARAMS.iconScale;
+  const iconSize =
+    cellSize * 0.6 +
+    cellSize * Math.random() * PARAMS.iconScale +
+    canvasUnits.y;
   const rotate = PARAMS.useIconRotation ? 360 * Math.random() : 0;
   const x = PARAMS.alignWithGrid
     ? 0
@@ -462,11 +469,11 @@ function getIcon(iconScope = []) {
   svg.innerHTML = `<use xlink:href="#icon-subject-${
     PARAMS.useMonoIcons ? "mono-" : ""
   }${icon}"></use>`;
-  svg.style = `fill: ${color}; width: ${iconSize}px; height: ${iconSize}px`;
+  svg.style = `fill: ${color}; width: ${iconSize}; height: ${iconSize}`;
 
   setCSSVariable(svg, "--rotate", rotate + "deg");
-  setCSSVariable(svg, "--x", x + "px");
-  setCSSVariable(svg, "--y", y + "px");
+  setCSSVariable(svg, "--x", x + canvasUnits.x);
+  setCSSVariable(svg, "--y", y + canvasUnits.y);
   if (PARAMS.useAnimations) {
     setCSSVariable(svg, "--animationDuration", PARAMS.animationDuration + "s");
     setCSSVariable(svg, "--animationDelay", delay + "s");
@@ -481,7 +488,7 @@ function render() {
   const slotsWrapper = document.getElementById("slotsWrapper");
   const iconScope = getIconScope(PARAMS.iconAmount);
   // slotsWrapper.style.transform= `rotate(${PARAMS.sceneRotation}deg) scale(${PARAMS.scale})`;
-  slotsWrapper.style.transform = `perspective(400px) rotate3d(1, 0, 0, ${PARAMS.sceneRotation}deg) scale(${PARAMS.scale})`;
+  slotsWrapper.style.transform = `perspective(25vh) rotate3d(1, 0, 0, ${PARAMS.sceneRotation}deg) scale(${PARAMS.scale})`;
 
   for (let i = 0; i < PARAMS.rows; i++) {
     for (let j = 0; j < PARAMS.cols; j++) {
@@ -489,10 +496,10 @@ function render() {
       newDiv.setAttribute("id", `slot-${i}${j}`);
       newDiv.setAttribute("class", "slot");
       newDiv.style.position = "absolute";
-      newDiv.style.width = `${cellSizeX}px`;
-      newDiv.style.height = `${cellSizeY}px`;
-      newDiv.style.left = cellSizeX * i + "px";
-      newDiv.style.top = cellSizeY * j + "px";
+      newDiv.style.width = `${cellSizeX}${canvasUnits.x}`;
+      newDiv.style.height = `${cellSizeY}${canvasUnits.y}`;
+      newDiv.style.left = cellSizeX * i + canvasUnits.x;
+      newDiv.style.top = cellSizeY * j + canvasUnits.y;
 
       const svgContainer = document.createElement("div");
 
