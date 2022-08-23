@@ -361,7 +361,7 @@ randomizeSettingsButton.on("click", () => {
     Math.random() < 0.5
       ? randomizeOption({
           min: (rowsSetup.max * 4) / 10,
-          max: (rowsSetup.max * 7) / 10,
+          max: (rowsSetup.max * 8) / 10,
           step: 1,
         })
       : randomizeOption(rowsSetup);
@@ -370,6 +370,8 @@ randomizeSettingsButton.on("click", () => {
   const iconsAmount =
     Math.random() < 0.5
       ? randomizeOption({ min: iconAmountSetup.min, max: 3, step: 1 })
+      : Math.random() < 0.5
+      ? randomizeOption({ min: 3, max: 10, step: 1 })
       : randomizeOption(iconAmountSetup);
 
   const scale =
@@ -380,7 +382,7 @@ randomizeSettingsButton.on("click", () => {
   const iconsScale =
     Math.random() < 0.3
       ? 0
-      : Math.random() < 0.5
+      : Math.random() < 0.6
       ? randomizeOption({
           min: 0.5,
           max: 2,
@@ -404,7 +406,7 @@ randomizeSettingsButton.on("click", () => {
     animationDuration: randomizeOption(animationDurationSetup),
     useIconRotation: Math.random() < 0.5,
     iconScale: iconsScale,
-    alignWithGrid: Math.random() < 0.5,
+    alignWithGrid: Math.random() < 0.75,
   };
 
   pane.importPreset(randomPreset);
