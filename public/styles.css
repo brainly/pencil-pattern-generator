@@ -37,8 +37,8 @@ body div:last-child {
   overflow: hidden;
   box-sizing: content-box;
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 800px;
+  height: 800px;
   background: var(--yellow-20);
 }
 
