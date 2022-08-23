@@ -339,15 +339,20 @@ randomizeSettingsButton.on("click", () => {
   let randomIconColor3 = emptyOption;
 
   function randomizeIconColor(colors, iconColorOptions) {
-    return Object.values(colors)[randomizeOption(iconColorOptions)];
+    return colors[randomizeOption(iconColorOptions)];
   }
 
+  // Remove background color from set
+  const iconColors = Object.values(colors).filter(
+    (color) => color !== randomBackground
+  );
+
   if (useMonoIcons) {
-    randomIconColor1 = randomizeIconColor(colors, iconColorOptions);
+    randomIconColor1 = randomizeIconColor(iconColors, iconColorOptions);
     if (Math.random() < 0.6) {
-      randomIconColor2 = randomizeIconColor(colors, iconColorOptions);
+      randomIconColor2 = randomizeIconColor(iconColors, iconColorOptions);
       if (Math.random() < 0.5) {
-        randomIconColor3 = randomizeIconColor(colors, iconColorOptions);
+        randomIconColor3 = randomizeIconColor(iconColors, iconColorOptions);
       }
     }
   }
