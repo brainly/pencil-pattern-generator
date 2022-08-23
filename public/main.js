@@ -146,10 +146,8 @@ const gradients = {
     "linear-gradient(180.0deg, rgba(147, 80, 0, 1.0) 0%, rgba(19, 49, 145, 1.0) 100%)",
 };
 
-const rows = 10;
-const cols = 10;
-const canvasSize = 800;
-const cellSize = canvasSize / rows;
+const defaultCanvasSize = 800;
+let canvasSize = defaultCanvasSize;
 const emptyOption = "-";
 
 const colsSetup = {
@@ -208,6 +206,7 @@ const PARAMS = {
   useIconRotation: true,
   iconScale: iconScaleSetup.min,
   alignWithGrid: true,
+  useFullscreen: false,
 };
 
 const pane = new Tweakpane.Pane({ title: "Play with this ✨" });
@@ -308,6 +307,23 @@ pane.addInput(PARAMS, "iconColor2", {
 pane.addInput(PARAMS, "iconColor3", {
   options: colorOptions,
 });
+
+pane.addSeparator();
+
+const useFullscreen = pane.addInput(PARAMS, "useFullscreen");
+
+useFullscreen.on("change", (ev) => {
+  if (!ev.value) {
+    canvasSize = defaultCanvasSize;
+    document.getElementById("canvas").style.width = defaultCanvasSize + "px";
+    document.getElementById("canvas").style.height = defaultCanvasSize + "px";
+  } else {
+    document.getElementById("canvas").style.width = "100vw";
+    document.getElementById("canvas").style.height = "100vh";
+    canvasSize = document.documentElement.clientWidth;
+  }
+});
+
 pane.addSeparator();
 
 const DEFAULT_PRESET = pane.exportPreset();
@@ -440,7 +456,8 @@ function setBackground() {
 function getIcon(iconScope = []) {
   const icon =
     IconType[iconScope[Math.floor(iconScope.length * Math.random())]];
-  const iconSize = cellSize * 0.6 + cellSize * Math.random() * PARAMS.iconScale;
+  const iconSize =
+    cellSizeX * 0.6 + cellSizeX * Math.random() * PARAMS.iconScale;
   const rotate = PARAMS.useIconRotation ? 360 * Math.random() : 0;
   const x = PARAMS.alignWithGrid
     ? 0
