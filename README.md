@@ -1,6 +1,6 @@
 # Pencil Pattern Generator
 
-> Pencil Random 💩 Generator was a several-hour cretive hackathon project organized by the pencil team. it resulted in an amazing css pattern generator that uses pencil branding images to create crazy effects that you can use as social media backgrounds.
+> Pencil Random 💩 Generator was a several-hour creative hackathon project organized by the pencil team. it resulted in an amazing css pattern generator that uses pencil branding images to create crazy effects that you can use as social media backgrounds.
 
 ![plot](./resources/screenshot.png)
 
