@@ -6,7 +6,7 @@
 
 ## Live
 
-[Visit live version](https://brainly.github.io/pencil-pattern-generator/)
+To see the live version click [here](https://brainly.github.io/pencil-pattern-generator/)
 
 ## Local development
 
