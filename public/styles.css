@@ -14,6 +14,24 @@ body div:last-child {
   border-color: var(--blue-60);
 }
 
+.tp-rotv:not(.tp-rotv-expanded) {
+  opacity: 0;
+  position: relative;
+}
+
+.tp-rotv:not(.tp-rotv-expanded):after {
+  content: "";
+  height: 200px;
+  display: block;
+  position: absolute;
+  width: 100%;
+}
+
+.tp-rotv:not(.tp-rotv-expanded):hover,
+.tp-rotv:not(.tp-rotv-expanded):focus {
+  opacity: 1;
+}
+
 #canvas {
   transform: translateZ(0);
   overflow: hidden;
