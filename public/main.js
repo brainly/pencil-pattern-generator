@@ -352,30 +352,53 @@ randomizeSettingsButton.on("click", () => {
     }
   }
 
-  const rowsNumber = randomizeOption(rowsSetup);
+  const rowsNumber =
+    Math.random() < 0.5
+      ? randomizeOption({
+          min: (rowsSetup.max * 4) / 10,
+          max: (rowsSetup.max * 7) / 10,
+          step: 1,
+        })
+      : randomizeOption(rowsSetup);
   const colsNumber =
-    Math.random() < 0.5 ? rowsNumber : randomizeOption(colsSetup);
+    Math.random() < 0.7 ? rowsNumber : randomizeOption(colsSetup);
   const iconsAmount =
     Math.random() < 0.5
       ? randomizeOption({ min: iconAmountSetup.min, max: 3, step: 1 })
       : randomizeOption(iconAmountSetup);
+
+  const scale =
+    Math.random() < 0.5
+      ? randomizeOption({ min: 0.3, max: 5, step: scaleSetup.step })
+      : randomizeOption(scaleSetup);
+
+  const iconsScale =
+    Math.random() < 0.3
+      ? 0
+      : Math.random() < 0.5
+      ? randomizeOption({
+          min: 0.5,
+          max: 2,
+          step: iconScaleSetup.step,
+        })
+      : randomizeOption(iconScaleSetup);
 
   const randomPreset = {
     rows: rowsNumber,
     cols: colsNumber,
     rotation: randomizeOption(iconRotationSetup),
     sceneRotation:
-      Math.random() < 0.3 ? randomizeOption(sceneRotationSetup) : 0,
+      Math.random() < 0.25 ? randomizeOption(sceneRotationSetup) : 0,
     iconAmount: iconsAmount,
     backgroundColor: randomBackground,
     useMonoIcons: useMonoIcons,
     iconColor1: randomIconColor1,
     iconColor2: randomIconColor2,
     iconColor3: randomIconColor3,
-    scale: randomizeOption(scaleSetup),
+    scale: scale,
     animationDuration: randomizeOption(animationDurationSetup),
     useIconRotation: Math.random() < 0.5,
-    iconScale: randomizeOption(iconScaleSetup),
+    iconScale: iconsScale,
     alignWithGrid: Math.random() < 0.5,
   };
 
