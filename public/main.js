@@ -322,6 +322,7 @@ useFullscreen.on("change", (ev) => {
     document.getElementById("canvas").style.height = "100vh";
     canvasSize = document.documentElement.clientWidth;
   }
+  refreshCanvas();
 });
 
 pane.addSeparator();
