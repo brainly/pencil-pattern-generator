@@ -179,7 +179,7 @@ const iconScaleSetup = {
   step: 0.1,
 };
 const animationDurationSetup = {
-  min: 0,
+  min: 1,
   max: 10,
   step: 1,
 };
