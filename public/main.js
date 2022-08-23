@@ -441,9 +441,13 @@ function getIcon(iconScope = []) {
   const icon =
     IconType[iconScope[Math.floor(iconScope.length * Math.random())]];
   const iconSize = cellSize * 0.6 + cellSize * Math.random() * PARAMS.iconScale;
-  const rotate = PARAMS.useIconRotation ? PARAMS.rotation * Math.random() : 1;
-  const x = PARAMS.alignWithGrid ? 0 : (Math.random() * cellSize) / 4;
-  const y = PARAMS.alignWithGrid ? 0 : (Math.random() * cellSize) / 4;
+  const rotate = PARAMS.useIconRotation ? 360 * Math.random() : 0;
+  const x = PARAMS.alignWithGrid
+    ? 0
+    : (Math.random() * cellSizeX - cellSizeX / 2) / 2;
+  const y = PARAMS.alignWithGrid
+    ? 0
+    : (Math.random() * cellSizeY - cellSizeY / 2) / 2;
 
   const delay = PARAMS.animationDuration * Math.random();
   const iconColors = [
