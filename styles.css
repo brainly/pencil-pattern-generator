@@ -48,7 +48,6 @@ svg {
   animation: heartbit var(--animationDuration) var(--animationDelay) infinite,
     bloop var(--animationDelay) cubic-bezier(1, 0, 0.82, 0.82);
   transform: var(--defaultTransform);
-  will-change: transform;
 }
 
 @keyframes heartbit {
