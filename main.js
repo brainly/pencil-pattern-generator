@@ -203,6 +203,7 @@ const PARAMS = {
   iconColor2: emptyOption,
   iconColor3: emptyOption,
   scale: 1,
+  useAnimations: true,
   animationDuration: 4,
   useIconRotation: true,
   iconScale: iconScaleSetup.min,
@@ -260,11 +261,6 @@ pane.addInput(PARAMS, "iconAmount", {
   ...iconAmountSetup,
 });
 
-pane.addInput(PARAMS, "animationDuration", {
-  label: "animation duration",
-  ...animationDurationSetup,
-});
-
 pane.addInput(PARAMS, "useIconRotation");
 
 pane.addInput(PARAMS, "alignWithGrid");
@@ -287,6 +283,18 @@ const colorOptions = { [emptyOption]: emptyOption, ...colors };
 
 pane.addInput(PARAMS, "backgroundColor", {
   options: { ...colorOptions, ...gradients },
+});
+
+pane.addSeparator();
+const useAnimationsController = pane.addInput(PARAMS, "useAnimations");
+
+useAnimationsController.on("change", (ev) => {
+  animationDurationController.hidden = !ev.value;
+});
+
+const animationDurationController = pane.addInput(PARAMS, "animationDuration", {
+  label: "animation duration",
+  ...animationDurationSetup,
 });
 
 pane.addSeparator();
@@ -455,8 +463,10 @@ function getIcon(iconScope = []) {
   setCSSVariable(svg, "--rotate", rotate + "deg");
   setCSSVariable(svg, "--x", x + "px");
   setCSSVariable(svg, "--y", y + "px");
-  setCSSVariable(svg, "--animationDuration", PARAMS.animationDuration + "s");
-  setCSSVariable(svg, "--animationDelay", delay + "s");
+  if (PARAMS.useAnimations) {
+    setCSSVariable(svg, "--animationDuration", PARAMS.animationDuration + "s");
+    setCSSVariable(svg, "--animationDelay", delay + "s");
+  }
   return svg;
 }
 
