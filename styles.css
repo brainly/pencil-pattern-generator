@@ -44,37 +44,39 @@ body div:last-child {
 }
 
 svg {
+  --defaultTransform: rotate(var(--rotate)) translate3d(var(--x), var(--y), 0);
   animation: heartbit var(--animationDuration) var(--animationDelay) infinite,
     bloop var(--animationDelay) cubic-bezier(1, 0, 0.82, 0.82);
-  transform: rotate(var(--rotate)) translate(var(--x), var(--y));
+  transform: var(--defaultTransform);
+  will-change: transform;
 }
 
 @keyframes heartbit {
   0% {
-    transform: scale(1) rotate(var(--rotate)) translate(var(--x), var(--y));
+    transform: scale(1) var(--defaultTransform);
   }
   20% {
-    transform: scale(0.75) rotate(var(--rotate)) translate(var(--x), var(--y));
+    transform: scale(0.75) var(--defaultTransform);
   }
   40% {
-    transform: scale(1) rotate(var(--rotate)) translate(var(--x), var(--y));
+    transform: scale(1) var(--defaultTransform);
   }
   60% {
-    transform: scale(0.75) rotate(var(--rotate)) translate(var(--x), var(--y));
+    transform: scale(0.75) var(--defaultTransform);
   }
   80% {
-    transform: scale(0.75) rotate(var(--rotate)) translate(var(--x), var(--y));
+    transform: scale(0.75) var(--defaultTransform);
   }
   100% {
-    transform: scale(1) rotate(var(--rotate)) translate(var(--x), var(--y));
+    transform: scale(1) var(--defaultTransform);
   }
 }
 
 @keyframes bloop {
   0% {
-    transform: scale(0) rotate(var(--rotate)) translate(var(--x), var(--y));
+    transform: scale(0) var(--defaultTransform);
   }
   100% {
-    transform: scale(1) rotate(var(--rotate)) translate(var(--x), var(--y));
+    transform: scale(1) var(--defaultTransform);
   }
 }
