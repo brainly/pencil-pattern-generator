@@ -146,10 +146,8 @@ const gradients = {
     "linear-gradient(180.0deg, rgba(147, 80, 0, 1.0) 0%, rgba(19, 49, 145, 1.0) 100%)",
 };
 
-const rows = 10;
-const cols = 10;
-const canvasSize = 800;
-const cellSize = canvasSize / rows;
+// setup PARAMS
+
 const emptyOption = "-";
 
 const colsSetup = {
@@ -208,12 +206,45 @@ const PARAMS = {
   useIconRotation: true,
   iconScale: iconScaleSetup.min,
   alignWithGrid: true,
+  useFullscreen: false,
 };
 
-const pane = new Tweakpane.Pane({ title: "Play with this ✨" });
+// setup canvas
 
-let cellSizeX = canvasSize / PARAMS.rows;
-let cellSizeY = canvasSize / PARAMS.cols;
+let cellSizeX, cellSizeY, canvas;
+
+function getCanvas(useFullscreen) {
+  if (useFullscreen) {
+    return {
+      size: 100,
+      units: {
+        x: "vw",
+        y: "vh",
+      },
+    };
+  }
+  return {
+    size: 800,
+    units: {
+      x: "px",
+      y: "px",
+    },
+  };
+}
+
+function calculate() {
+  canvas = getCanvas(PARAMS.useFullscreen);
+  cellSizeX = canvas.size / PARAMS.rows;
+  cellSizeY = canvas.size / PARAMS.cols;
+}
+
+calculate();
+
+const cellSize = (canvas.size / rowsSetup.max) * 2;
+
+// setup pane
+
+const pane = new Tweakpane.Pane({ title: "Play with this ✨" });
 
 function refreshCanvas() {
   calculate();
@@ -226,10 +257,18 @@ pane.on("change", (ev) => {
   console.log("changed: " + JSON.stringify(ev.value));
 });
 
-function calculate() {
-  cellSizeX = canvasSize / PARAMS.rows;
-  cellSizeY = canvasSize / PARAMS.cols;
-}
+const useFullscreen = pane
+  .addInput(PARAMS, "useFullscreen", {
+    label: "use fullscreen",
+  })
+  .on("change", (ev) => {
+    const c = getCanvas(ev.value);
+    const width = c.size + c.units.x;
+    const height = c.size + c.units.y;
+
+    document.getElementById("canvas").style.width = width;
+    document.getElementById("canvas").style.height = height;
+  });
 
 pane.addInput(PARAMS, "rows", {
   label: "rows",
@@ -246,24 +285,10 @@ pane.addInput(PARAMS, "scale", {
   ...scaleSetup,
 });
 
-pane.addInput(PARAMS, "iconScale", {
-  label: "icon size variation",
-  ...iconScaleSetup,
-});
-
 pane.addInput(PARAMS, "sceneRotation", {
   label: "scene rotation X",
   ...sceneRotationSetup,
 });
-
-pane.addInput(PARAMS, "iconAmount", {
-  label: "icon amount",
-  ...iconAmountSetup,
-});
-
-pane.addInput(PARAMS, "useIconRotation");
-
-pane.addInput(PARAMS, "alignWithGrid");
 
 const paneColorOptions = Object.keys(colors).map((color) => {
   return {
@@ -283,13 +308,58 @@ const colorOptions = { [emptyOption]: emptyOption, ...colors };
 
 pane.addInput(PARAMS, "backgroundColor", {
   options: { ...colorOptions, ...gradients },
+  label: "background",
 });
 
 pane.addSeparator();
-const useAnimationsController = pane.addInput(PARAMS, "useAnimations");
 
-useAnimationsController.on("change", (ev) => {
-  animationDurationController.hidden = !ev.value;
+pane.addInput(PARAMS, "iconScale", {
+  label: "icon size variation",
+  ...iconScaleSetup,
+});
+
+pane.addInput(PARAMS, "iconAmount", {
+  label: "icon amount",
+  ...iconAmountSetup,
+});
+
+pane.addInput(PARAMS, "useIconRotation", { label: "use icon rotation" });
+
+pane.addInput(PARAMS, "alignWithGrid", { label: "align with grid" });
+
+const useMonoIcons = pane.addInput(PARAMS, "useMonoIcons", {
+  label: "use mono icons",
+});
+
+const color1 = pane.addInput(PARAMS, "iconColor1", {
+  options: colorOptions,
+  label: "color 1",
+  hidden: true,
+});
+
+const color2 = pane.addInput(PARAMS, "iconColor2", {
+  options: colorOptions,
+  label: "color 2",
+  hidden: true,
+});
+
+const color3 = pane.addInput(PARAMS, "iconColor3", {
+  options: colorOptions,
+  label: "color 3",
+  hidden: true,
+});
+
+useMonoIcons.on("change", (ev) => {
+  const hide = !ev.value;
+  color1.hidden = hide;
+  color2.hidden = hide;
+  color3.hidden = hide;
+});
+
+pane.addSeparator();
+
+const useAnimationsController = pane.addInput(PARAMS, "useAnimations", {
+  label: "use animation",
 });
 
 const animationDurationController = pane.addInput(PARAMS, "animationDuration", {
@@ -297,28 +367,19 @@ const animationDurationController = pane.addInput(PARAMS, "animationDuration", {
   ...animationDurationSetup,
 });
 
-pane.addSeparator();
-pane.addInput(PARAMS, "useMonoIcons");
-pane.addInput(PARAMS, "iconColor1", {
-  options: colorOptions,
+useAnimationsController.on("change", (ev) => {
+  animationDurationController.hidden = !ev.value;
 });
-pane.addInput(PARAMS, "iconColor2", {
-  options: colorOptions,
-});
-pane.addInput(PARAMS, "iconColor3", {
-  options: colorOptions,
-});
+
 pane.addSeparator();
 
 const DEFAULT_PRESET = pane.exportPreset();
 
-const refreshButton = pane.addButton({ title: "Refresh icons 🔄" });
-refreshButton.on("click", () => {
+pane.addButton({ title: "Refresh icons 🔄" }).on("click", () => {
   refreshCanvas();
 });
 
-const randomizeSettingsButton = pane.addButton({ title: "Randomize 🎲" });
-randomizeSettingsButton.on("click", () => {
+pane.addButton({ title: "Randomize 🎲" }).on("click", () => {
   function getRandomWithStep(min, max, step) {
     const x = Math.floor(Math.random() * ((max - min + step) / step));
     return step * x + min;
@@ -420,10 +481,11 @@ randomizeSettingsButton.on("click", () => {
   pane.importPreset(randomPreset);
 });
 
-const resetToDefaultsButton = pane.addButton({ title: "Reset to default" });
-resetToDefaultsButton.on("click", () => {
+pane.addButton({ title: "Reset to default" }).on("click", () => {
   pane.importPreset(DEFAULT_PRESET);
 });
+
+// render
 
 function getIconScope(size) {
   const scope = [];
@@ -440,7 +502,8 @@ function setBackground() {
 function getIcon(iconScope = []) {
   const icon =
     IconType[iconScope[Math.floor(iconScope.length * Math.random())]];
-  const iconSize = cellSize * 0.6 + cellSize * Math.random() * PARAMS.iconScale;
+  const iconSize =
+    cellSize * 0.6 + cellSize * Math.random() * PARAMS.iconScale + "px";
   const rotate = PARAMS.useIconRotation ? 360 * Math.random() : 0;
   const x = PARAMS.alignWithGrid
     ? 0
@@ -462,11 +525,11 @@ function getIcon(iconScope = []) {
   svg.innerHTML = `<use xlink:href="#icon-subject-${
     PARAMS.useMonoIcons ? "mono-" : ""
   }${icon}"></use>`;
-  svg.style = `fill: ${color}; width: ${iconSize}px; height: ${iconSize}px`;
+  svg.style = `fill: ${color}; width: ${iconSize}; height: ${iconSize}`;
 
   setCSSVariable(svg, "--rotate", rotate + "deg");
-  setCSSVariable(svg, "--x", x + "px");
-  setCSSVariable(svg, "--y", y + "px");
+  setCSSVariable(svg, "--x", x + canvas.units.x);
+  setCSSVariable(svg, "--y", y + canvas.units.y);
   if (PARAMS.useAnimations) {
     setCSSVariable(svg, "--animationDuration", PARAMS.animationDuration + "s");
     setCSSVariable(svg, "--animationDelay", delay + "s");
@@ -481,7 +544,7 @@ function render() {
   const slotsWrapper = document.getElementById("slotsWrapper");
   const iconScope = getIconScope(PARAMS.iconAmount);
   // slotsWrapper.style.transform= `rotate(${PARAMS.sceneRotation}deg) scale(${PARAMS.scale})`;
-  slotsWrapper.style.transform = `perspective(400px) rotate3d(1, 0, 0, ${PARAMS.sceneRotation}deg) scale(${PARAMS.scale})`;
+  slotsWrapper.style.transform = `perspective(25vh) rotate3d(1, 0, 0, ${PARAMS.sceneRotation}deg) scale(${PARAMS.scale})`;
 
   for (let i = 0; i < PARAMS.rows; i++) {
     for (let j = 0; j < PARAMS.cols; j++) {
@@ -489,10 +552,10 @@ function render() {
       newDiv.setAttribute("id", `slot-${i}${j}`);
       newDiv.setAttribute("class", "slot");
       newDiv.style.position = "absolute";
-      newDiv.style.width = `${cellSizeX}px`;
-      newDiv.style.height = `${cellSizeY}px`;
-      newDiv.style.left = cellSizeX * i + "px";
-      newDiv.style.top = cellSizeY * j + "px";
+      newDiv.style.width = `${cellSizeX}${canvas.units.x}`;
+      newDiv.style.height = `${cellSizeY}${canvas.units.y}`;
+      newDiv.style.left = cellSizeX * i + canvas.units.x;
+      newDiv.style.top = cellSizeY * j + canvas.units.y;
 
       const svgContainer = document.createElement("div");
 
