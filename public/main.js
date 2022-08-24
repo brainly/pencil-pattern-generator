@@ -257,6 +257,19 @@ pane.on("change", (ev) => {
   console.log("changed: " + JSON.stringify(ev.value));
 });
 
+const useFullscreen = pane
+  .addInput(PARAMS, "useFullscreen", {
+    label: "use fullscreen",
+  })
+  .on("change", (ev) => {
+    const c = getCanvas(ev.value);
+    const width = c.size + c.units.x;
+    const height = c.size + c.units.y;
+
+    document.getElementById("canvas").style.width = width;
+    document.getElementById("canvas").style.height = height;
+  });
+
 pane.addInput(PARAMS, "rows", {
   label: "rows",
   ...rowsSetup,
@@ -276,21 +289,6 @@ pane.addInput(PARAMS, "sceneRotation", {
   label: "scene rotation X",
   ...sceneRotationSetup,
 });
-
-pane.addInput(PARAMS, "alignWithGrid", { label: "align with grid" });
-
-const useFullscreen = pane
-  .addInput(PARAMS, "useFullscreen", {
-    label: "use fullscreen",
-  })
-  .on("change", (ev) => {
-    const c = getCanvas(ev.value);
-    const width = c.size + c.units.x;
-    const height = c.size + c.units.y;
-
-    document.getElementById("canvas").style.width = width;
-    document.getElementById("canvas").style.height = height;
-  });
 
 const paneColorOptions = Object.keys(colors).map((color) => {
   return {
@@ -326,6 +324,8 @@ pane.addInput(PARAMS, "iconAmount", {
 });
 
 pane.addInput(PARAMS, "useIconRotation", { label: "use icon rotation" });
+
+pane.addInput(PARAMS, "alignWithGrid", { label: "align with grid" });
 
 const useMonoIcons = pane.addInput(PARAMS, "useMonoIcons", {
   label: "use mono icons",
