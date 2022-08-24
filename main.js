@@ -334,26 +334,26 @@ const useMonoIcons = pane.addInput(PARAMS, "useMonoIcons", {
 const color1 = pane.addInput(PARAMS, "iconColor1", {
   options: colorOptions,
   label: "color 1",
-  hidden: true,
+  disabled: true,
 });
 
 const color2 = pane.addInput(PARAMS, "iconColor2", {
   options: colorOptions,
   label: "color 2",
-  hidden: true,
+  disabled: true,
 });
 
 const color3 = pane.addInput(PARAMS, "iconColor3", {
   options: colorOptions,
   label: "color 3",
-  hidden: true,
+  disabled: true,
 });
 
 useMonoIcons.on("change", (ev) => {
   const hide = !ev.value;
-  color1.hidden = hide;
-  color2.hidden = hide;
-  color3.hidden = hide;
+  color1.disabled = hide;
+  color2.disabled = hide;
+  color3.disabled = hide;
 });
 
 pane.addSeparator();
@@ -368,7 +368,7 @@ const animationDurationController = pane.addInput(PARAMS, "animationDuration", {
 });
 
 useAnimationsController.on("change", (ev) => {
-  animationDurationController.hidden = !ev.value;
+  animationDurationController.disabled = !ev.value;
 });
 
 pane.addSeparator();
